@@ -8,12 +8,12 @@ export function Menu() {
     const pathName = usePathname()
     return (
         <div>
-            <nav className="flex gap-6 text-white/80">
+            <nav className="flex flex-col gap-6 text-white/80">
                 {MENU.map(menuItem => (
                     <MenuItem
                         key={menuItem.name}
                         menuItem={menuItem}
-                        isActive={!!match(menuItem.href)(pathName)}
+                        isActive={!!match(menuItem.href)(pathName) || pathName.startsWith(menuItem.href + '/')}
                     />
                 ))}
             </nav>

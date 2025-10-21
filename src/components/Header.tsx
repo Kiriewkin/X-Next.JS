@@ -6,8 +6,8 @@ import logo from '../../public/x-logo.svg'
 
 export function Header() {
     return (
-        <header className="border-b border-white/10 px-6 py-4 flex 
-        items-center justify-between bg-black">
+        <header className="border-r border-gray-800 px-6 py-4 flex 
+             items-center flex-col bg-black">
             <Link
                 href="/"
                 className="
@@ -20,8 +20,8 @@ export function Header() {
                 <Image
                     src={logo}
                     alt="x-logo"
-                    width={50}
-                    height={30}
+                    width={70}
+                    height={50}
                 />
             </Link>
             <Menu />

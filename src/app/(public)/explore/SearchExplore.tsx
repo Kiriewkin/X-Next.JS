@@ -1,14 +1,18 @@
 'use client'
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { TWEETS } from "@/shared/data/tweets.data"
 import { USERS } from "@/shared/data/users.data"
 import Link from "next/link"
 import { PAGES } from "@/config/pages.config"
 
+import styles from './index.module.scss'
+
 interface Props { }
 
 export function SearchExplore({ }: Props) {
+    const router = useRouter()
     const [query, setQuery] = useState("")
 
     const filteredTweets =
@@ -25,28 +29,33 @@ export function SearchExplore({ }: Props) {
             })
 
     return (
-        <div className="px-8">
+        <div className="w-full">
             <input
                 type="text"
                 placeholder="Search"
                 name="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full border-b border-white/20 focus:border-white/60 transition-colors
-                   outline-none text-lg text-white placeholder-white/70 bg-transparent
-                   py-2 mb-6"
+                className={styles.searchInput}
             />
 
             {query.trim() !== "" && (
-                <div className="flex flex-col gap-4">
+                <div className="mt-3 flex flex-col gap-4">
                     {filteredTweets.length > 0 ? (
                         filteredTweets.map((tweet) => {
                             const user = USERS.find(u => u.id === tweet.userId)
                             if (!user) return null
+
+                            const handleClick = () => {
+                                router.push(`/user/${user.nickname}/${tweet.id}`)
+                            }
+
                             return (
                                 <div
+                                    onClick={handleClick}
                                     key={tweet.id}
-                                    className="border-b border-white/10 pb-4 text-white/90 hover:text-white transition-colors flex gap-2 items-center"
+                                    className="p-2 border-b border-white/10 pb-4 text-white/90 hover:text-white
+                                    flex gap-2 items-center cursor-pointer hover:bg-gray-700 transition-colors rounded-2xl"
                                 >
                                     <img
                                         src={user.avatarUrl}
@@ -54,8 +63,11 @@ export function SearchExplore({ }: Props) {
                                         className="w-8 h-8 rounded-full object-cover"
                                     />
                                     <div>
-                                        <Link href={PAGES.PROFILE(user.username)} className="font-semibold hover:underline">
-                                            {user.nickname}
+                                        <Link
+                                            href={PAGES.PROFILE(user.nickname)} className="font-semibold hover:underline"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            @{user.nickname}
                                         </Link>
                                         <div className="text-sm text-white/70">{tweet.text}</div>
                                     </div>

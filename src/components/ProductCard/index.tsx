@@ -9,8 +9,8 @@ export interface Product {
 
 export function ProductCard({ title, image, price }: Product) {
     return (
-        <div className="max-w-sm bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
-            <div className="relative w-full h-48">
+        <div className="max-w-sm bg-gray rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+            <div className="relative w-full h-48 flex justify-center items-center">
                 <Image
                     src={image}
                     alt={title}
@@ -20,8 +20,8 @@ export function ProductCard({ title, image, price }: Product) {
                 />
             </div>
             <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-900 mb-2">{title}</h2>
-                <p className="text-blue-600 font-bold text-md">${price.toFixed(2)}</p>
+                <h2 className="text-lg font-semibold text-white-900 mb-2">{title}</h2>
+                <p className="text-white-600 font-bold text-md">${price.toFixed(2)}</p>
             </div>
         </div>
     )

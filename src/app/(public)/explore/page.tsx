@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 export default function ExplorePage() {
     return (
         <Suspense>
-            <SearchExplore />
-            <Explore />
+            <div className="flex flex-col">
+                <SearchExplore />
+                <Explore />
+            </div>
         </Suspense>
     )
 }

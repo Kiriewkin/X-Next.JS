@@ -1,9 +1,10 @@
 'use client'
 import { USERS } from '@/shared/data/users.data'
 import { TWEETS } from '@/shared/data/tweets.data'
+import Tweet from '../../(home)/Tweet'
 
-export function Profile({ username }: { username: string }) {
-  const user = USERS.find(u => u.username === username)
+export function Profile({ nickname }: { nickname: string }) {
+  const user = USERS.find(u => u.nickname === nickname)
   if (!user) return <div className="text-white/70 italic">User not found!</div>
 
   const userTweets = TWEETS.filter(t => t.userId === user.id)
@@ -18,19 +19,14 @@ export function Profile({ username }: { username: string }) {
         />
         <div>
           <h2 className="text-2xl font-bold text-white">{user.name}</h2>
-          <p className="text-white/70">{user.nickname}</p>
+          <p className="text-white/70">@{user.nickname}</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-4 py-4">
         {userTweets.length > 0 ? (
           userTweets.map(tweet => (
-            <div
-              key={tweet.id}
-              className="border-b border-white/10 pb-4 text-white/90"
-            >
-              <p>{tweet.text}</p>
-            </div>
+            <Tweet tweet={tweet}/>
           ))
         ) : (
           <div className="text-white/50 italic">User not have a Tweets</div>
